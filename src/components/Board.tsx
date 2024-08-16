@@ -6,9 +6,10 @@ export default function Board() {
   const [squares, setSquares] = useState<(null | "X" | "O")[]>(
     Array(9).fill(null)
   );
+  const [winner, setWinner] = useState<null | "X" | "O">(null);
 
   function handleClick(index: number): void {
-    if (squares[index] !== null) {
+    if (squares[index] !== null || winner !== null) {
       return;
     }
     const newSquares = squares.slice();
@@ -16,8 +17,10 @@ export default function Board() {
     setSquares(newSquares);
     setTurn(turn === "X" ? "O" : "X");
 
-    const winner = calculateWinner(newSquares);
-    console.log(winner);
+    const calculatedWinner = calculateWinner(newSquares);
+    if (calculatedWinner) {
+      setWinner(calculatedWinner);
+    }
   }
 
   return (
