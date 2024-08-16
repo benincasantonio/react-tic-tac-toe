@@ -1,3 +1,11 @@
-export default function Square({ sign }: { sign: 'X' | 'O' }) {
-    return <button className="square">{sign}</button>;
+import { useState } from "react";
+
+export default function Square() {
+    const [sign, setSign] = useState<'X' | 'O' | null>(null);
+
+    function handleClick() {
+        setSign('X');
+    }
+
+    return <button className="square" onClick={handleClick}>{sign}</button>;
 }
