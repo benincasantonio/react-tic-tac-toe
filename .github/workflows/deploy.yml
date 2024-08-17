@@ -22,9 +22,14 @@ jobs:
                 bun-version: 1.1.21
             - run: bun install --frozen-lockfile
             - name: Build
-              run: bun run build-cd
+              run: bun run build
+            - name: Upload Artifact
+              uses: actions/upload-artifact@v4
+              with:
+                path: ./dist
+                name: dist
             - name: Deploy
               uses: actions/deploy-pages@v4
               with:
                 token: ${{ secrets.GITHUB_TOKEN }}
-                artifact_name: build
+                artifact_name: dist
