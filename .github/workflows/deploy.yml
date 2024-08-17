@@ -21,7 +21,7 @@ jobs:
             - name: Build
               run: bun run build-cd
             - name: Deploy
-              uses: peaceiris/actions-gh-pages@v4
+              uses: actions/deploy-pages@v4
               with:
-                github_token: ${{ secrets.GITHUB_TOKEN }}
-                publish_dir: ./build
+                token: ${{ secrets.GITHUB_TOKEN }}
+                artifact_name: build
