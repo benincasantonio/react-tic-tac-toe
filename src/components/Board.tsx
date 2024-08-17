@@ -6,7 +6,6 @@ export default function Board() {
   const [squares, setSquares] = useState<(null | "X" | "O")[]>(
     Array(9).fill(null)
   );
-  const [winner, setWinner] = useState<null | "X" | "O">(null);
 
   function handleClick(index: number): void {
     if (squares[index] !== null || winner !== null) {
@@ -17,14 +16,22 @@ export default function Board() {
     setSquares(newSquares);
     setTurn(turn === "X" ? "O" : "X");
 
-    const calculatedWinner = calculateWinner(newSquares);
-    if (calculatedWinner) {
-      setWinner(calculatedWinner);
-    }
   }
+
+  const winner = calculateWinner(squares);
+  let status: string | null = null;
+  if(winner) {
+    status = `Winner: ${winner}`;
+  } else if(!winner && squares.every((square) => square !== null)) {
+    status = "Draw!";
+  } else {
+    status = `Next player: ${turn}`;
+  }
+
 
   return (
     <>
+      <div className="status">{status}</div>
       <div className="board-row">
         <Square sign={squares[0]} onClick={() => handleClick(0)} />
         <Square sign={squares[1]} onClick={() => handleClick(1)} />
