@@ -1,16 +1,14 @@
-import { useState } from "react";
 import Square from "./Square";
 
 export default function Board({
   turn,
   onPlay,
+  squares,
 }: {
   turn: "X" | "O";
-  onPlay: (newTurn: "X" | "O") => void;
+  squares: (null | "X" | "O")[];
+  onPlay: (nextSquares: (null | "X" | "O")[]) => void;
 }) {
-  const [squares, setSquares] = useState<(null | "X" | "O")[]>(
-    Array(9).fill(null)
-  );
 
   function handleClick(index: number): void {
     if (squares[index] !== null || winner !== null) {
@@ -18,8 +16,7 @@ export default function Board({
     }
     const newSquares = squares.slice();
     newSquares[index] = turn;
-    setSquares(newSquares);
-    onPlay(turn === "X" ? "O" : "X");
+    onPlay(newSquares);
 
   }
 
