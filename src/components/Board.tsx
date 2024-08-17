@@ -1,8 +1,13 @@
 import { useState } from "react";
 import Square from "./Square";
 
-export default function Board() {
-  const [turn, setTurn] = useState<"X" | "O">("X");
+export default function Board({
+  turn,
+  onPlay,
+}: {
+  turn: "X" | "O";
+  onPlay: (newTurn: "X" | "O") => void;
+}) {
   const [squares, setSquares] = useState<(null | "X" | "O")[]>(
     Array(9).fill(null)
   );
@@ -14,7 +19,7 @@ export default function Board() {
     const newSquares = squares.slice();
     newSquares[index] = turn;
     setSquares(newSquares);
-    setTurn(turn === "X" ? "O" : "X");
+    onPlay(turn === "X" ? "O" : "X");
 
   }
 
