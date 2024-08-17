@@ -5,7 +5,7 @@ export default function HistorySelection({
   history: (null | "X" | "O")[][];
   jumpTo: (step: number) => void;
 }) {
-  const moves = history.map((step, move) => {
+  const moves = history.map((_step, move) => {
     return (
       <li key={move}>
         <button onClick={() => jumpTo(move)}>
